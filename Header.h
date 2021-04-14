@@ -6,6 +6,20 @@ public:
 
     Header(const Header &h);
 
+    int32_t getFilesize() const;
+
+    void setFilesize(int32_t filesize);
+
+    int32_t getWidth() const;
+
+    void setWidth(int32_t width);
+
+    int32_t getDepth() const;
+
+    void setDepth(int32_t depth);
+
+    long getNumberOfPixels();
+
 private:
     int8_t id[2];            // Завжди дві літери 'B' і 'M'
     int32_t filesize;        // Розмір файла в байтах

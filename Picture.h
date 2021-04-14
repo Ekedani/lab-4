@@ -1,14 +1,8 @@
-//
-// Created by name on 14.04.2021.
-//
-
-#ifndef LAB_4_PICTURE_H
-#define LAB_4_PICTURE_H
-
+#include "Pixel.h"
+#include "Header.h"
 
 class Picture {
-
+private:
+    Header header;
+    Pixel *body = new Pixel[header.getNumberOfPixels()];
 };
-
-
-#endif //LAB_4_PICTURE_H

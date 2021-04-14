@@ -23,3 +23,31 @@ Header::Header(const Header &h) {
     biClrUsed = h.biClrUsed;
     biClrImportant = h.biClrImportant;
 }
+
+int32_t Header::getFilesize() const {
+    return filesize;
+}
+
+void Header::setFilesize(int32_t filesize) {
+    Header::filesize = filesize;
+}
+
+int32_t Header::getWidth() const {
+    return width;
+}
+
+void Header::setWidth(int32_t width) {
+    Header::width = width;
+}
+
+int32_t Header::getDepth() const {
+    return depth;
+}
+
+void Header::setDepth(int32_t depth) {
+    Header::depth = depth;
+}
+
+long Header::getNumberOfPixels(){
+    return width*depth;
+}

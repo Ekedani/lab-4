@@ -28,6 +28,8 @@ void Pixel::setBlueComponent(int8_t blueComponent) {
     Pixel::blueComponent = blueComponent;
 }
 
+Pixel::Pixel() {}
+
 Pixel::Pixel(int8_t redComponent, int8_t greenComponent, int8_t blueComponent) : redComponent(redComponent),
                                                                                  greenComponent(greenComponent),
                                                                                  blueComponent(blueComponent) {}

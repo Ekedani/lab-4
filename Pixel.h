@@ -7,6 +7,7 @@ private:
     int8_t greenComponent;
     int8_t blueComponent;
 public:
+    Pixel();
     Pixel(int8_t redComponent, int8_t greenComponent, int8_t blueComponent);
 
     int8_t getRedComponent() const;
