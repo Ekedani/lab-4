@@ -10,7 +10,7 @@ void Body::createADataArray(){
 }
 
 //Чтение из файла
-void Body::readAFile(string address) {
+void Body::readFromFile(string address) {
     //Создаем массив, в который будем заносить информацию о пикселях
     this->createADataArray();
 
@@ -23,7 +23,7 @@ void Body::readAFile(string address) {
     for (int counter = 0; counter < depth; ++counter) {
         this->readAline(file, proceeded_pixels);
     }
-    
+
     //Закрытие файла
     file.close();
 }
@@ -48,5 +48,9 @@ void Body::readAline(ifstream &file, long &proceeded_pixels){
 
 //Увеличение массива пикселей в заданное количество раз
 void Body::enlargeImage(int coef) {
+
+}
+
+void Body::writeToFile(string address) {
 
 }

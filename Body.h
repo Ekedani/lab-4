@@ -21,9 +21,11 @@ public:
         Body::depth = depth;
     }
 
-    void readAFile(string address);
+    void readFromFile(string address);
 
-    void enlargeImage(int coeff);
+    void enlargeImage(int coef);
+
+    void writeToFile(string address);
 
 
 
