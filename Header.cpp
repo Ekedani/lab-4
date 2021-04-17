@@ -48,6 +48,10 @@ void Header::setDepth(int32_t depth) {
     Header::depth = depth;
 }
 
-long Header::getNumberOfPixels(){
-    return width*depth;
+void Header::enlargeImage(int coef) {
+    depth *= coef;
+    width *= coef;
+    //TODO: НУЛЕВЫЕ БАЙТЫ
 }
+
+

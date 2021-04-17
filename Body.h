@@ -12,9 +12,11 @@ private:
     //Методы
     long getNumberOfPixels() const;
 
-    void readAline(ifstream &file, long &proceeded_pixels);
+    void readAline(ifstream &file, long &proceeded_pixels, int delta);
 
     void createADataArray();
+
+    void enlargeLine(int coef, long &proceeded_pixels, Pixel *new_data);
 public:
     Body(int32_t width, int32_t depth){
         Body::width = width;
@@ -26,8 +28,6 @@ public:
     void enlargeImage(int coef);
 
     void writeToFile(string address);
-
-
 
 };
 

@@ -18,7 +18,7 @@ public:
 
     void setDepth(int32_t depth);
 
-    long getNumberOfPixels();
+    void enlargeImage(int coef);
 
 private:
     int8_t id[2];            // Завжди дві літери 'B' і 'M'
