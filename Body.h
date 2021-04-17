@@ -12,7 +12,7 @@ private:
     //Методы
     long getNumberOfPixels() const;
 
-    void readAline(ifstream file, long &proceeded_pixels);
+    void readAline(ifstream &file, long &proceeded_pixels);
 
     void createADataArray();
 public:

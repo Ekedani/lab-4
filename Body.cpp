@@ -21,13 +21,15 @@ void Body::readAFile(string address) {
     //Поочередно обрабатываем каждый пиксель
     long proceeded_pixels = 0;
     for (int counter = 0; counter < depth; ++counter) {
-        //TODO: каким-то образом передать параметр file, или убрать метод (предпочтиельно первое)
         this->readAline(file, proceeded_pixels);
     }
+    
+    //Закрытие файла
+    file.close();
 }
 
 //TODO: Возможно, стоит обьединить с readAFile
-void Body::readAline(ifstream file, long &proceeded_pixels){
+void Body::readAline(ifstream &file, long &proceeded_pixels){
     for (int counter = 0; counter < width; ++counter) {
         //Чтение цвета пикселя
         int8_t red;
@@ -45,6 +47,6 @@ void Body::readAline(ifstream file, long &proceeded_pixels){
 }
 
 //Увеличение массива пикселей в заданное количество раз
-void Body::enlargeImage(int coeff) {
+void Body::enlargeImage(int coef) {
 
 }
