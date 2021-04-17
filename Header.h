@@ -1,4 +1,6 @@
 #include <cstdint>
+#include <string>
+#include <fstream>
 using namespace std;
 class Header {
 public:

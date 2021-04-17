@@ -90,6 +90,7 @@ void Body::writeToFile(const string& address) const {
             file.write((char *) &tmp, sizeof(int8_t));
         }
     }
+    file.close();
 }
 
 void Body::writeLine(ofstream &file, long &proceeded_pixels){

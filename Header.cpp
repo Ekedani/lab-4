@@ -55,4 +55,15 @@ void Header::enlargeImage(int coef) {
     //TODO: написать filesize = 54 +
 }
 
+void readHeader(string address){
+    ifstream file (address, ios::in | ios::binary);
+    //TODO: Чтение и запись переменных
+    file.close();
+}
+
+void writeHeader(string address){
+    ofstream file (address, ios::out | ios::binary);
+    //TODO: Чтение переменных и запись в файл
+    file.close();
+}
 
