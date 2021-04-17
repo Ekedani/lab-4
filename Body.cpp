@@ -46,7 +46,7 @@ void Body::readAline(ifstream &file, long &proceeded_pixels){
     //TODO: скип нулевых байтов
 }
 
-//Увеличение массива пикселей в заданное количество раз
+//Увеличение массива пикселей в заданное ЦЕЛОЕ количество раз
 void Body::enlargeImage(int coef) {
 
 }
