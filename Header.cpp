@@ -51,7 +51,8 @@ void Header::setDepth(int32_t depth) {
 void Header::enlargeImage(int coef) {
     depth *= coef;
     width *= coef;
-    //TODO: НУЛЕВЫЕ БАЙТЫ
+    int delta = 4 - (width % 4);
+    //TODO: написать filesize = 54 +
 }
 
 
