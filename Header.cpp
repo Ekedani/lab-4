@@ -55,13 +55,27 @@ void Header::enlargeImage(int coef) {
     //TODO: написать filesize = 54 +
 }
 
-void readHeader(string address){
+void Header::readHeader(string address){
     ifstream file (address, ios::in | ios::binary);
-    //TODO: Чтение и запись переменных
+    file.read((char*)&id, sizeof(id));
+    file.read((char*)&filesize, sizeof(filesize));
+    file.read((char*)&reserved, sizeof(reserved));
+    file.read((char*)&headersize, sizeof(headersize));
+    file.read((char*)&infoSize, sizeof(infoSize));
+    file.read((char*)&width, sizeof(width));
+    file.read((char*)&depth, sizeof(depth));
+    file.read((char*)&biPlanes, sizeof(biPlanes));
+    file.read((char*)&bits, sizeof(bits));
+    file.read((char*)&biCompression, sizeof(biCompression));
+    file.read((char*)&biSizeImage, sizeof(biSizeImage));
+    file.read((char*)&biXPelsPerMeter, sizeof(biXPelsPerMeter));
+    file.read((char*)&biYPelsPerMeter, sizeof(biYPelsPerMeter));
+    file.read((char*)&biClrUsed, sizeof(biClrUsed));
+    file.read((char*)&biClrImportant, sizeof(biClrImportant));
     file.close();
 }
 
-void writeHeader(string address){
+void Header::writeHeader(string address){
     ofstream file (address, ios::out | ios::binary);
     //TODO: Чтение переменных и запись в файл
     file.close();

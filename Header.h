@@ -22,6 +22,10 @@ public:
 
     void enlargeImage(int coef);
 
+    void readHeader(string address);
+
+    void writeHeader(string address);
+
 private:
     int8_t id[2];            // Завжди дві літери 'B' і 'M'
     int32_t filesize;        // Розмір файла в байтах
