@@ -77,7 +77,21 @@ void Header::readHeader(string address){
 
 void Header::writeHeader(string address){
     ofstream file (address, ios::out | ios::binary);
-    //TODO: Чтение переменных и запись в файл
+    file.write((char*)&id, sizeof(id));
+    file.write((char*)&filesize, sizeof(filesize));
+    file.write((char*)&reserved, sizeof(reserved));
+    file.write((char*)&headersize, sizeof(headersize));
+    file.write((char*)&infoSize, sizeof(infoSize));
+    file.write((char*)&width, sizeof(width));
+    file.write((char*)&depth, sizeof(depth));
+    file.write((char*)&biPlanes, sizeof(biPlanes));
+    file.write((char*)&bits, sizeof(bits));
+    file.write((char*)&biCompression, sizeof(biCompression));
+    file.write((char*)&biSizeImage, sizeof(biSizeImage));
+    file.write((char*)&biXPelsPerMeter, sizeof(biXPelsPerMeter));
+    file.write((char*)&biYPelsPerMeter, sizeof(biYPelsPerMeter));
+    file.write((char*)&biClrUsed, sizeof(biClrUsed));
+    file.write((char*)&biClrImportant, sizeof(biClrImportant));
     file.close();
 }
 
