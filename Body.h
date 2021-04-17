@@ -17,6 +17,8 @@ private:
     void createADataArray();
 
     void enlargeLine(int coef, long &proceeded_pixels, Pixel *new_data);
+
+    void writeLine(ofstream &file, long &proceeded_pixels);
 public:
     Body(int32_t width, int32_t depth){
         Body::width = width;
@@ -27,7 +29,7 @@ public:
 
     void enlargeImage(int coef);
 
-    void writeToFile(string address);
+    void writeToFile(const string& address) const;
 
 };
 

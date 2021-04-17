@@ -76,6 +76,31 @@ void Body::enlargeLine(int coef, long &proceeded_pixels, Pixel *new_data) {
     proceeded_pixels += width;
 }
 
-void Body::writeToFile(string address) {
+void Body::writeToFile(const string& address) const {
     int delta = 4 - (width % 4);
+    ofstream file (address, ios::out | ios::binary | ios::app);
+
+    long proceeded_pixels = 0;
+    for(int i = 0; i < depth; i++){
+
+
+        for(int j = 0; j < delta; j++){
+            //МОЖЕТ РАБОТАТЬ НЕПРАВИЛЬНО
+            int8_t tmp = 0;
+            file.write((char *) &tmp, sizeof(int8_t));
+        }
+    }
+}
+
+void Body::writeLine(ofstream &file, long &proceeded_pixels){
+    for (int counter = 0; counter < width; ++counter) {
+        //Запись цвета пикселя
+        int8_t red = data[proceeded_pixels].getRedComponent();
+        file.write((char*)&red, sizeof(int8_t));
+        int8_t green = data[proceeded_pixels].getGreenComponent();
+        file.write((char*)&green, sizeof(int8_t));
+        int8_t blue = data[proceeded_pixels].getBlueComponent();
+        file.write((char*)&blue, sizeof(int8_t));
+        proceeded_pixels++;
+    }
 }
