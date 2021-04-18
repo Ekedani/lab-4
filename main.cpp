@@ -2,15 +2,22 @@
 #include <string>
 #include "Picture.h"
 using namespace std;
+//C:\Users\koziu\Desktop\lab-4\cmake-build-debug\lab_4.exe
+int main(int argc, char *argv[]) {
 
-int main() {
-    string s;
-    cout << "Enter some path to file: ";
-    cin >> s;
-    //s = "E:\\my-repos\\lab-4\\thumbnail (1).bmp";
-    //s = "C:\\Users\\koziu\\Downloads\\bmp.bmp";
-    Picture test_image(s);
-    test_image.EnlargeImage(3);
-    test_image.writeToFile("hhh.bmp");
+    if(argc!=4) {
+        cout << "There should be exactly 3 arguments" << endl;
+        return 0;
+    }
+    string input = argv[1];
+    string output = argv[2];
+    int coef = *argv[3] - '0';
+
+    Picture test_image(input);
+    cout << "Enlarging image " << coef << " times...";
+    test_image.EnlargeImage(coef);
+    cout << "Done." << endl;
+    test_image.writeToFile(output);
+    cout << "Result is written to " << output;
     return 0;
 }
