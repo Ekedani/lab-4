@@ -1,4 +1,6 @@
 #include <cstdint>
+#include <string>
+#include <fstream>
 using namespace std;
 class Header {
 public:
@@ -18,13 +20,22 @@ public:
 
     void setDepth(int32_t depth);
 
-    long getNumberOfPixels();
+    void enlargeImage(int coef);
+
+    void readHeader(string address);
+
+    void writeHeader(string address);
 
 private:
     int8_t id[2];            // Завжди дві літери 'B' і 'M'
     int32_t filesize;        // Розмір файла в байтах
     int16_t reserved[2];     // 0, 0
-    int32_t headersize;      // 54L для 24-бітних зображень
+    int32_t headersize;
+public:
+    int32_t getHeadersize() const;
+
+private:
+    // 54L для 24-бітних зображень
     int32_t infoSize;        // 40L для 24-бітних зображень
     int32_t width;           // ширина зображення в пікселях
     int32_t depth;           // висота зображення в пікселях
