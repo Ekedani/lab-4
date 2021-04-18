@@ -18,7 +18,7 @@ private:
 
     void createADataArray();
 
-    void enlargeLine(int coef, long &proceeded_pixels, Pixel *new_data);
+    void enlargeLine(int coef, long &proceeded_pixels, long &new_proceeded_pixels, Pixel *new_data);
 
     void writeLine(ofstream &file, long &proceeded_pixels) const;
 public:

@@ -14,6 +14,8 @@ int main() {
     Body b(h.getWidth(),h.getDepth());
     b.header_size = h.getHeadersize();
     b.readFromFile(s);
+    h.enlargeImage(3);
+    b.enlargeImage(3);
     cout << endl;
     cout << int(b.data[4181].getRedComponent()) << " ";
     cout << int (b.data[4181].getGreenComponent()) << " ";
