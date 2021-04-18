@@ -82,7 +82,6 @@ void Header::writeHeader(string address){
     file.write((char*)&filesize, sizeof(filesize));
     file.write((char*)&reserved, sizeof(reserved));
     file.write((char*)&headersize, sizeof(headersize));
-    cout << int(headersize) << endl;
     file.write((char*)&infoSize, sizeof(infoSize));
     file.write((char*)&width, sizeof(width));
     file.write((char*)&depth, sizeof(depth));

@@ -25,7 +25,6 @@ void Body::readFromFile(string address) {
 
     //Поочередно обрабатываем каждый пиксель
     long proceeded_pixels = 0;
-    long global_count = 54;
     int delta = 4 - ((width * 3) % 4);
     for (int counter = 0; counter < depth; ++counter) {
         this->readAline(file, proceeded_pixels, delta);
@@ -75,8 +74,6 @@ void Body::enlargeImage(int coef) {
     width = new_width;
     depth = new_depth;
     data = new_data;
-    cout << proceeded_pixels << endl;
-    cout << new_proceeded_pixels << endl;
 }
 
 void Body::enlargeLine(int coef, long &proceeded_pixels, long &new_proceeded_pixels, Pixel *new_data) {
