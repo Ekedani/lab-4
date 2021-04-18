@@ -53,7 +53,7 @@ void Header::enlargeImage(int coef) {
     depth *= coef;
     width *= coef;
     int delta = 4 - (width % 4);
-    //TODO: написать filesize = 54 +
+    filesize = 54 + (depth * width)*3 + delta*width;
 }
 
 void Header::readHeader(string address){

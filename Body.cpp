@@ -84,6 +84,8 @@ void Body::enlargeImage(int coef) {
     width = new_width;
     depth = new_depth;
     data = new_data;
+    cout << proceeded_pixels << endl;
+    cout << new_proceeded_pixels << endl;
 }
 
 void Body::enlargeLine(int coef, long &proceeded_pixels, long &new_proceeded_pixels, Pixel *new_data) {
