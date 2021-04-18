@@ -2,6 +2,9 @@
 #include <iostream>
 
 using namespace std;
+
+Body::Body() {}
+
 long Body::getNumberOfPixels() const{
     return width*depth;
 }
@@ -25,7 +28,7 @@ void Body::readFromFile(string address) {
     long global_count = 54;
     int delta = 4 - ((width * 3) % 4);
     for (int counter = 0; counter < depth; ++counter) {
-        this->readAline(file, proceeded_pixels, delta, global_count);
+        this->readAline(file, proceeded_pixels, delta);
     }
 
     //Закрытие файла
@@ -33,36 +36,24 @@ void Body::readFromFile(string address) {
 }
 
 //TODO: Возможно, стоит обьединить с readAFile
-void Body::readAline(ifstream &file, long &proceeded_pixels, int delta, long &global_count){
+void Body::readAline(ifstream &file, long &proceeded_pixels, int delta){
     for (int counter = 0; counter < width; ++counter) {
-        //Все выводы дебажные, мы на дебажной ветке в конце концов
 
         //Чтение цвета пикселя
-        //cout << "Pixel is " << proceeded_pixels << endl;
-        //cout << "Char number " << global_count << endl;
         int8_t red;
         file.read((char*)&red, sizeof(int8_t));
-        //cout << "Red is "<< int(red) << endl;
-        global_count++;
 
         int8_t green;
         file.read((char*)&green, sizeof(int8_t));
-        //cout << "Char number " << global_count << endl;
-        //cout << "Green is "<< int(green) << endl;
-        global_count++;
 
         int8_t blue;
         file.read((char*)&blue, sizeof(int8_t));
-        //cout << "Char number " << global_count << endl;
-        //cout << "Blue is "<< int(blue) << endl;
-        //cout << "---------------" << endl;
-        global_count++;
+
         //Запись информации о пикселе в массив
         data[proceeded_pixels] = Pixel(red, green, blue);
         proceeded_pixels++;
     }
-    //Эта штука снизу всё портит
-    //file.seekg(delta, ios::cur);
+
     long tmp;
     file.read((char*)&tmp, delta);
 }
@@ -123,4 +114,12 @@ void Body::writeLine(ofstream &file, long &proceeded_pixels) const{
         file.write((char*)&blue, sizeof(int8_t));
         proceeded_pixels++;
     }
+}
+
+void Body::setWidth(int32_t width) {
+    Body::width = width;
+}
+
+void Body::setDepth(int32_t depth) {
+    Body::depth = depth;
 }

@@ -9,12 +9,12 @@ private:
 
     int32_t width;
     int32_t depth;
-
+    Pixel *data;
 
     //Методы
     long getNumberOfPixels() const;
 
-    void readAline(ifstream &file, long &proceeded_pixels, int delta, long &global_count);
+    void readAline(ifstream &file, long &proceeded_pixels, int delta);
 
     void createADataArray();
 
@@ -23,17 +23,18 @@ private:
     void writeLine(ofstream &file, long &proceeded_pixels) const;
 public:
     int32_t header_size;
-    Pixel *data;
-    Body(int32_t width, int32_t depth){
-        Body::width = width;
-        Body::depth = depth;
-    }
+
+    Body();
 
     void readFromFile(string address);
 
     void enlargeImage(int coef);
 
     void writeToFile(const string& address) const;
+
+    void setWidth(int32_t width);
+
+    void setDepth(int32_t depth);
 
 };
 
