@@ -2,12 +2,14 @@
 #include <string>
 #include <fstream>
 
+
 class Body {
 private:
     //Атрибуты
 
     int32_t width;
     int32_t depth;
+
 
     //Методы
     long getNumberOfPixels() const;
@@ -20,6 +22,7 @@ private:
 
     void writeLine(ofstream &file, long &proceeded_pixels) const;
 public:
+    int32_t header_size;
     Pixel *data;
     Body(int32_t width, int32_t depth){
         Body::width = width;

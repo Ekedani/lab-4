@@ -6,17 +6,19 @@ using namespace std;
 
 int main() {
     string s;
-    cin >> s;
+    //cin >> s;
+    s = "E:\\my-repos\\lab-4\\thumbnail (1).bmp";
     Header h;
     h.readHeader(s);
-    h.writeHeader("hhh.txt");
+    h.writeHeader("hhh.bmp");
     Body b(h.getWidth(),h.getDepth());
+    b.header_size = h.getHeadersize();
     b.readFromFile(s);
     cout << endl;
     cout << int(b.data[4181].getRedComponent()) << " ";
     cout << int (b.data[4181].getGreenComponent()) << " ";
     cout << int(b.data[4181].getBlueComponent()) << " ";
-    b.writeToFile("hhh.txt");
+    b.writeToFile("hhh.bmp");
     return 0;
 }
 

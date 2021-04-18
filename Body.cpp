@@ -38,24 +38,24 @@ void Body::readAline(ifstream &file, long &proceeded_pixels, int delta, long &gl
         //Все выводы дебажные, мы на дебажной ветке в конце концов
 
         //Чтение цвета пикселя
-        cout << "Pixel is " << proceeded_pixels << endl;
-        cout << "Char number " << global_count << endl;
+        //cout << "Pixel is " << proceeded_pixels << endl;
+        //cout << "Char number " << global_count << endl;
         int8_t red;
         file.read((char*)&red, sizeof(int8_t));
-        cout << "Red is "<< int(red) << endl;
+        //cout << "Red is "<< int(red) << endl;
         global_count++;
 
         int8_t green;
         file.read((char*)&green, sizeof(int8_t));
-        cout << "Char number " << global_count << endl;
-        cout << "Green is "<< int(green) << endl;
+        //cout << "Char number " << global_count << endl;
+        //cout << "Green is "<< int(green) << endl;
         global_count++;
 
         int8_t blue;
         file.read((char*)&blue, sizeof(int8_t));
-        cout << "Char number " << global_count << endl;
-        cout << "Blue is "<< int(blue) << endl;
-        cout << "---------------" << endl;
+        //cout << "Char number " << global_count << endl;
+        //cout << "Blue is "<< int(blue) << endl;
+        //cout << "---------------" << endl;
         global_count++;
         //Запись информации о пикселе в массив
         data[proceeded_pixels] = Pixel(red, green, blue);
@@ -63,6 +63,8 @@ void Body::readAline(ifstream &file, long &proceeded_pixels, int delta, long &gl
     }
     //Эта штука снизу всё портит
     //file.seekg(delta, ios::cur);
+    long tmp;
+    file.read((char*)&tmp, delta);
 }
 
 //Увеличение массива пикселей в заданное ЦЕЛОЕ количество раз
@@ -95,10 +97,15 @@ void Body::enlargeLine(int coef, long &proceeded_pixels, Pixel *new_data) {
 }
 
 void Body::writeToFile(const string& address) const {
+    int delta = 4 - (width % 4);
     ofstream file (address, ios::out | ios::binary | ios::app);
     long proceeded_pixels = 0;
     for(int i = 0; i < depth; i++){
         this->writeLine(file, proceeded_pixels);
+        for(int j = 0; j < delta; j++){
+            int8_t zero = 0;
+            file.write((char*)&zero, sizeof(int8_t));
+        }
     }
     file.close();
 }
