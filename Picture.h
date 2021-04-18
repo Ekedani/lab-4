@@ -6,7 +6,10 @@ private:
     Header header;
     Body body;
 public:
-    //Picture(string address){
-    //    //TODO: чтение Header, передача ширины и высоты в Body, чтение Body
-    //}
+    Picture(string address);
+
+    void EnlargeImage(int coef);
+
+    void writeToFile(string address);
+
 };

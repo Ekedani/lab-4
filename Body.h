@@ -2,12 +2,14 @@
 #include <string>
 #include <fstream>
 
+
 class Body {
 private:
     //Атрибуты
-    Pixel *data;
+
     int32_t width;
     int32_t depth;
+    Pixel *data;
 
     //Методы
     long getNumberOfPixels() const;
@@ -16,20 +18,23 @@ private:
 
     void createADataArray();
 
-    void enlargeLine(int coef, long &proceeded_pixels, Pixel *new_data);
+    void enlargeLine(int coef, long &proceeded_pixels, long &new_proceeded_pixels, Pixel *new_data);
 
-    void writeLine(ofstream &file, long &proceeded_pixels);
+    void writeLine(ofstream &file, long &proceeded_pixels) const;
 public:
-    Body(int32_t width, int32_t depth){
-        Body::width = width;
-        Body::depth = depth;
-    }
+    int32_t header_size;
+
+    Body();
 
     void readFromFile(string address);
 
     void enlargeImage(int coef);
 
     void writeToFile(const string& address) const;
+
+    void setWidth(int32_t width);
+
+    void setDepth(int32_t depth);
 
 };
 

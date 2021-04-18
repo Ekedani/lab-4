@@ -1,3 +1,4 @@
+#include <iostream>
 #include "Header.h"
 
 //Конструктор по умолчанию
@@ -52,7 +53,7 @@ void Header::enlargeImage(int coef) {
     depth *= coef;
     width *= coef;
     int delta = 4 - (width % 4);
-    //TODO: написать filesize = 54 +
+    filesize = 54 + (depth * width)*3 + delta*width;
 }
 
 void Header::readHeader(string address){
@@ -81,6 +82,7 @@ void Header::writeHeader(string address){
     file.write((char*)&filesize, sizeof(filesize));
     file.write((char*)&reserved, sizeof(reserved));
     file.write((char*)&headersize, sizeof(headersize));
+    cout << int(headersize) << endl;
     file.write((char*)&infoSize, sizeof(infoSize));
     file.write((char*)&width, sizeof(width));
     file.write((char*)&depth, sizeof(depth));
@@ -93,5 +95,9 @@ void Header::writeHeader(string address){
     file.write((char*)&biClrUsed, sizeof(biClrUsed));
     file.write((char*)&biClrImportant, sizeof(biClrImportant));
     file.close();
+}
+
+int32_t Header::getHeadersize() const {
+    return headersize;
 }
 
