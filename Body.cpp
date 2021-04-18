@@ -1,5 +1,7 @@
 #include "Body.h"
+#include <iostream>
 
+using namespace std;
 long Body::getNumberOfPixels() const{
     return width*depth;
 }
@@ -16,13 +18,14 @@ void Body::readFromFile(string address) {
 
     //Открытие файла и пропуск Header'а
     ifstream file (address, ios::in | ios::binary);
-    file.seekg(432, ios::beg);
+    file.seekg(54, ios::beg);
 
     //Поочередно обрабатываем каждый пиксель
     long proceeded_pixels = 0;
+    long global_count = 54;
     int delta = 4 - (width % 4);
     for (int counter = 0; counter < depth; ++counter) {
-        this->readAline(file, proceeded_pixels, delta);
+        this->readAline(file, proceeded_pixels, delta, global_count);
     }
 
     //Закрытие файла
@@ -30,21 +33,36 @@ void Body::readFromFile(string address) {
 }
 
 //TODO: Возможно, стоит обьединить с readAFile
-void Body::readAline(ifstream &file, long &proceeded_pixels, int delta){
+void Body::readAline(ifstream &file, long &proceeded_pixels, int delta, long &global_count){
     for (int counter = 0; counter < width; ++counter) {
+        //Все выводы дебажные, мы на дебажной ветке в конце концов
+
         //Чтение цвета пикселя
+        cout << "Pixel is " << proceeded_pixels << endl;
+        cout << "Char number " << global_count << endl;
         int8_t red;
         file.read((char*)&red, sizeof(int8_t));
+        cout << "Red is "<< int(red) << endl;
+        global_count++;
+
         int8_t green;
         file.read((char*)&green, sizeof(int8_t));
+        cout << "Char number " << global_count << endl;
+        cout << "Green is "<< int(green) << endl;
+        global_count++;
+
         int8_t blue;
         file.read((char*)&blue, sizeof(int8_t));
-
+        cout << "Char number " << global_count << endl;
+        cout << "Blue is "<< int(blue) << endl;
+        cout << "---------------" << endl;
+        global_count++;
         //Запись информации о пикселе в массив
         data[proceeded_pixels] = Pixel(red, green, blue);
         proceeded_pixels++;
     }
-    file.seekg(delta, ios::cur);
+    //Эта штука снизу всё портит
+    //file.seekg(delta, ios::cur);
 }
 
 //Увеличение массива пикселей в заданное ЦЕЛОЕ количество раз
@@ -77,23 +95,15 @@ void Body::enlargeLine(int coef, long &proceeded_pixels, Pixel *new_data) {
 }
 
 void Body::writeToFile(const string& address) const {
-    int delta = 4 - (width % 4);
     ofstream file (address, ios::out | ios::binary | ios::app);
-
     long proceeded_pixels = 0;
     for(int i = 0; i < depth; i++){
-
-
-        for(int j = 0; j < delta; j++){
-            //МОЖЕТ РАБОТАТЬ НЕПРАВИЛЬНО
-            int8_t tmp = 0;
-            file.write((char *) &tmp, sizeof(int8_t));
-        }
+        this->writeLine(file, proceeded_pixels);
     }
     file.close();
 }
 
-void Body::writeLine(ofstream &file, long &proceeded_pixels){
+void Body::writeLine(ofstream &file, long &proceeded_pixels) const{
     for (int counter = 0; counter < width; ++counter) {
         //Запись цвета пикселя
         int8_t red = data[proceeded_pixels].getRedComponent();
