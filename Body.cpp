@@ -144,8 +144,20 @@ void Body::enlargeBImage(double coef) {
             Pixel pixel3 = data[(oldX + 1) * width + oldY + 1];
             Pixel pixel4 = data[oldX * width + (oldY + 1)];
 
-            int R, B, G;
-            //TODO:поиск значений R,G,B;
+            int R = (int) (round(pixel1.getRedComponent() * (1 - deltaX) * (1 - deltaY) +
+                                 pixel2.getRedComponent() * deltaX * (1 - deltaY) +
+                                 pixel4.getRedComponent() * (1 - deltaX) * deltaY +
+                                 pixel3.getRedComponent() * deltaX * deltaY));
+
+            int G = (int) (round(pixel1.getGreenComponent() * (1 - deltaX) * (1 - deltaY) +
+                                 pixel2.getGreenComponent() * deltaX * (1 - deltaY) +
+                                 pixel4.getGreenComponent() * (1 - deltaX) * deltaY +
+                                 pixel3.getGreenComponent() * deltaX * deltaY));
+
+            int B = (int) (round(pixel1.getBlueComponent() * (1 - deltaX) * (1 - deltaY) +
+                                 pixel2.getBlueComponent() * deltaX * (1 - deltaY) +
+                                 pixel4.getBlueComponent() * (1 - deltaX) * deltaY +
+                                 pixel3.getBlueComponent() * deltaX * deltaY));
 
             Pixel newPixel;
             newPixel.setRedComponent(R);
