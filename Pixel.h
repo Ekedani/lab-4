@@ -3,22 +3,22 @@ using namespace std;
 
 class Pixel {
 private:
-    int8_t redComponent;
-    int8_t greenComponent;
-    int8_t blueComponent;
+    uint8_t redComponent;
+    uint8_t greenComponent;
+    uint8_t blueComponent;
 public:
     Pixel();
-    Pixel(int8_t redComponent, int8_t greenComponent, int8_t blueComponent);
+    Pixel(uint8_t redComponent, uint8_t greenComponent, uint8_t blueComponent);
 
-    int8_t getRedComponent() const;
+    uint8_t getRedComponent() const;
 
-    void setRedComponent(int8_t redComponent);
+    void setRedComponent(uint8_t redComponent);
 
-    int8_t getGreenComponent() const;
+    uint8_t getGreenComponent() const;
 
-    void setGreenComponent(int8_t greenComponent);
+    void setGreenComponent(uint8_t greenComponent);
 
-    int8_t getBlueComponent() const;
+    uint8_t getBlueComponent() const;
 
-    void setBlueComponent(int8_t blueComponent);
+    void setBlueComponent(uint8_t blueComponent);
 };
