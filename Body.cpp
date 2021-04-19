@@ -125,13 +125,36 @@ void Body::enlargeBImage(double coef) {
     int newWidth = (int) (coef * width);
     int newHeight = (int) (coef * depth);
 
-    Pixel *scaledImage = new Pixel[newWidth * newHeight];
+    Pixel *newImage = new Pixel[newWidth * newHeight];
     for (int x = 0; x < newWidth; x++) {
         for (int y = 0; y < newHeight - 1; y++) {
-            //TODO:обработка пикселей
+
+            double xDouble = (x / coef);
+            double yDouble = (y / coef);
+
+            int oldX = (int) (floor(x / coef));
+            int oldY = (int) (floor(y / coef));
+
+            double deltaX = xDouble - oldX;
+            double deltaY = yDouble - oldY;
+
+            //соседние пиксели
+            Pixel pixel1 = data[oldX * width + oldY];
+            Pixel pixel2 = data[(oldX + 1) * width + oldY];
+            Pixel pixel3 = data[(oldX + 1) * width + oldY + 1];
+            Pixel pixel4 = data[oldX * width + (oldY + 1)];
+
+            int R, B, G;
+            //TODO:поиск значений R,G,B;
+
+            Pixel newPixel;
+            newPixel.setRedComponent(R);
+            newPixel.setBlueComponent(B);
+            newPixel.setGreenComponent(G);
+            newImage[x * newWidth + y] = newPixel;
         }
     }
     width = newWidth;
     depth = newHeight;
-    data = scaledImage;
+    data = newImage;
 }
