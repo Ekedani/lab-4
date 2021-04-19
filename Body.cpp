@@ -122,5 +122,16 @@ void Body::setDepth(int32_t depth) {
 }
 
 void Body::enlargeBImage(double coef) {
-    //TODO:написать билинейную интерполяцию
+    int newWidth = (int) (coef * width);
+    int newHeight = (int) (coef * depth);
+
+    Pixel *scaledImage = new Pixel[newWidth * newHeight];
+    for (int x = 0; x < newWidth; x++) {
+        for (int y = 0; y < newHeight - 1; y++) {
+            //TODO:обработка пикселей
+        }
+    }
+    width = newWidth;
+    depth = newHeight;
+    data = scaledImage;
 }
