@@ -3,7 +3,7 @@
 
 using namespace std;
 
-Body::Body() {}
+Body::Body(){};
 
 long Body::getNumberOfPixels() const{
     return width*depth;
@@ -39,14 +39,14 @@ void Body::readAline(ifstream &file, long &proceeded_pixels, int delta){
     for (int counter = 0; counter < width; ++counter) {
 
         //Чтение цвета пикселя
-        int8_t red;
-        file.read((char*)&red, sizeof(int8_t));
+        uint8_t red;
+        file.read((char*)&red, sizeof(uint8_t));
 
-        int8_t green;
-        file.read((char*)&green, sizeof(int8_t));
+        uint8_t green;
+        file.read((char*)&green, sizeof(uint8_t));
 
-        int8_t blue;
-        file.read((char*)&blue, sizeof(int8_t));
+        uint8_t blue;
+        file.read((char*)&blue, sizeof(uint8_t));
 
         //Запись информации о пикселе в массив
         data[proceeded_pixels] = Pixel(red, green, blue);
@@ -93,8 +93,8 @@ void Body::writeToFile(const string& address) const {
     for(int i = 0; i < depth; i++){
         this->writeLine(file, proceeded_pixels);
         for(int j = 0; j < delta; j++){
-            int8_t zero = 0;
-            file.write((char*)&zero, sizeof(int8_t));
+            uint8_t zero = 0;
+            file.write((char*)&zero, sizeof(uint8_t));
         }
     }
     file.close();
@@ -103,12 +103,12 @@ void Body::writeToFile(const string& address) const {
 void Body::writeLine(ofstream &file, long &proceeded_pixels) const{
     for (int counter = 0; counter < width; ++counter) {
         //Запись цвета пикселя
-        int8_t red = data[proceeded_pixels].getRedComponent();
-        file.write((char*)&red, sizeof(int8_t));
-        int8_t green = data[proceeded_pixels].getGreenComponent();
-        file.write((char*)&green, sizeof(int8_t));
-        int8_t blue = data[proceeded_pixels].getBlueComponent();
-        file.write((char*)&blue, sizeof(int8_t));
+        uint8_t red = data[proceeded_pixels].getRedComponent();
+        file.write((char*)&red, sizeof(uint8_t));
+        uint8_t green = data[proceeded_pixels].getGreenComponent();
+        file.write((char*)&green, sizeof(uint8_t));
+        uint8_t blue = data[proceeded_pixels].getBlueComponent();
+        file.write((char*)&blue, sizeof(uint8_t));
         proceeded_pixels++;
     }
 }
@@ -119,4 +119,54 @@ void Body::setWidth(int32_t width) {
 
 void Body::setDepth(int32_t depth) {
     Body::depth = depth;
+}
+
+void Body::enlargeBImage(double coef) {
+    int newWidth = (int) (coef * width);
+    int newHeight = (int) (coef * depth);
+
+    Pixel *newImage = new Pixel[newWidth * newHeight];
+    for (int x = 0; x < newWidth; x++) {
+        for (int y = 0; y < newHeight - 1; y++) {
+
+            double xDouble = (x / coef);
+            double yDouble = (y / coef);
+
+            int oldX = (int) (floor(x / coef));
+            int oldY = (int) (floor(y / coef));
+
+            double deltaX = xDouble - oldX;
+            double deltaY = yDouble - oldY;
+
+            //соседние пиксели
+            Pixel pixel1 = data[oldX * width + oldY];
+            Pixel pixel2 = data[(oldX + 1) * width + oldY];
+            Pixel pixel3 = data[(oldX + 1) * width + oldY + 1];
+            Pixel pixel4 = data[oldX * width + (oldY + 1)];
+
+            int R = (int) (round(pixel1.getRedComponent() * (1 - deltaX) * (1 - deltaY) +
+                                 pixel2.getRedComponent() * deltaX * (1 - deltaY) +
+                                 pixel4.getRedComponent() * (1 - deltaX) * deltaY +
+                                 pixel3.getRedComponent() * deltaX * deltaY));
+
+            int G = (int) (round(pixel1.getGreenComponent() * (1 - deltaX) * (1 - deltaY) +
+                                 pixel2.getGreenComponent() * deltaX * (1 - deltaY) +
+                                 pixel4.getGreenComponent() * (1 - deltaX) * deltaY +
+                                 pixel3.getGreenComponent() * deltaX * deltaY));
+
+            int B = (int) (round(pixel1.getBlueComponent() * (1 - deltaX) * (1 - deltaY) +
+                                 pixel2.getBlueComponent() * deltaX * (1 - deltaY) +
+                                 pixel4.getBlueComponent() * (1 - deltaX) * deltaY +
+                                 pixel3.getBlueComponent() * deltaX * deltaY));
+
+            Pixel newPixel;
+            newPixel.setRedComponent(R);
+            newPixel.setBlueComponent(B);
+            newPixel.setGreenComponent(G);
+            newImage[x * newWidth + y] = newPixel;
+        }
+    }
+    width = newWidth;
+    depth = newHeight;
+    data = newImage;
 }

@@ -13,6 +13,11 @@ void Picture::EnlargeImage(int coef) {
     body.enlargeImage(coef);
 }
 
+void Picture::EnlargeImageInterpolation(double coef) {
+    header.enlargeImage(coef);
+    body.enlargeBImage(coef);
+}
+
 void Picture::writeToFile(string address) {
     header.writeHeader(address);
     body.writeToFile(address);
